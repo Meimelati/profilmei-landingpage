@@ -1,51 +1,33 @@
-      <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<!DOCTYPE html>
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio Mei Melati - Web Developer & Game Edukasi | SMK Cefada RPL</title>
+    <title>Mei Melati - Web Developer | SMK Cefada RPL</title>
     
-    <!-- PWA & Meta Theme -->
+    <!-- Meta & PWA Config -->
     <meta name="theme-color" content="#14b8a6">
-    <meta name="description" content="Portofolio resmi Mei Melati, Siswi SMK Cefada Jurusan RPL - Web Developer & Game Developer">
-    <link rel="manifest" href="manifest.json" id="manifest-placeholder">
-
+    <meta name="description" content="Portofolio Mei Melati - Siswi SMK Cefada Jurusan RPL (Rekayasa Perangkat Lunak)">
+    
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
+    <!-- FontAwesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Tone.js & Confetti Library (Untuk Game) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
-    <!-- Custom Tailwind Config (Pantai Sage Green & Turquoise) -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        sage: {
-                            50: '#f4f7f4',
-                            100: '#e3eae3',
-                            200: '#c5d5c5',
-                            300: '#9fb99f',
-                            400: '#769776',
-                            500: '#587b58',
-                            600: '#446144',
-                            700: '#374f37',
-                            800: '#2e412e',
-                            900: '#273627',
-                        },
                         turquoise: {
                             50: '#f0fdfa',
                             100: '#ccfbf1',
                             200: '#99f6e4',
                             300: '#5eead4',
                             400: '#2dd4bf',
-                            500: '#14b8a6',
+                            500: '#14b8a6', // Turquoise Utama
                             600: '#0d9488',
                             700: '#0f766e',
                             800: '#115e59',
@@ -56,6 +38,10 @@
                             100: '#fef7e6',
                             200: '#fde9c9',
                             300: '#fbd396',
+                        },
+                        pearl: {
+                            100: '#fdfbf7',
+                            200: '#f3ece0',
                         }
                     },
                     fontFamily: {
@@ -66,393 +52,440 @@
             }
         }
     </script>
-
+    
     <style>
-        /* Gradasi Tema Pantai Sage Green & Turquoise */
         body {
-            background: linear-gradient(135deg, #e3eae3 0%, #ccfbf1 40%, #fef7e6 70%, #99f6e4 100%);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #e6fffa 0%, #fef7e6 50%, #ccfbf1 100%);
             background-attachment: fixed;
         }
+
         .glass-card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
         }
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+
+        .floating-slow {
+            animation: float 5s ease-in-out infinite;
         }
-        .match-card.selected {
-            border-color: #14b8a6;
-            background-color: rgba(20, 184, 166, 0.2);
+
+        .floating-fast {
+            animation: float 3s ease-in-out infinite;
         }
-        .match-card.matched {
-            border-color: #10B981;
-            background-color: rgba(16, 185, 129, 0.2);
-            opacity: 0.6;
-            pointer-events: none;
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(3deg); }
+        }
+
+        .pearl-glow {
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.9), 0 0 10px rgba(94, 234, 212, 0.4);
         }
     </style>
 </head>
-<body class="text-slate-700 min-h-screen flex flex-col justify-between selection:bg-turquoise-200">
+<body class="text-slate-700 min-h-screen flex flex-col justify-between selection:bg-turquoise-200 selection:text-turquoise-900 relative overflow-x-hidden">
 
-    <!-- NAVBAR -->
-    <header class="sticky top-0 z-40 glass-nav border-b border-turquoise-100 shadow-sm">
-        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-            <a href="#" class="flex items-center gap-2">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-turquoise-500 to-sage-400 text-white flex items-center justify-center font-bold text-lg shadow">
+    <!-- Ornamen Latar Belakang Elemen Pantai (Floating Beach Icons) -->
+    <div class="fixed top-12 left-5 text-turquoise-300 text-4xl opacity-30 pointer-events-none floating-slow z-0">
+        <i class="fa-solid fa-tree-palm"></i>
+    </div>
+    <div class="fixed top-1/3 right-8 text-amber-300 text-3xl opacity-40 pointer-events-none floating-fast z-0" style="animation-delay: 1s;">
+        <i class="fa-solid fa-starfish"></i>
+    </div>
+    <div class="fixed bottom-1/4 left-10 text-teal-300 text-3xl opacity-30 pointer-events-none floating-slow z-0" style="animation-delay: 2s;">
+        <i class="fa-solid fa-water"></i>
+    </div>
+    <div class="fixed bottom-12 right-12 text-sand-300 text-4xl opacity-40 pointer-events-none floating-fast z-0" style="animation-delay: 1.5s;">
+        <i class="fa-solid fa-shell"></i>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 glass-card border-b border-turquoise-100/60 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2.5 group">
+                <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-turquoise-500 to-turquoise-400 text-white flex items-center justify-center font-heading font-bold text-xl shadow-md group-hover:scale-105 transition-transform">
                     <i class="fa-solid fa-umbrella-beach"></i>
                 </div>
                 <div>
-                    <span class="font-heading font-bold text-slate-800 text-base leading-none block">Mei Melati</span>
-                    <span class="text-[11px] text-turquoise-700 font-semibold">SMK Cefada RPL</span>
+                    <span class="font-heading font-bold text-lg text-turquoise-900 tracking-wide block leading-tight">Mei Melati</span>
+                    <span class="text-xs text-turquoise-600 font-medium">RPL • SMK Cefada</span>
                 </div>
             </a>
-            
-            <!-- Desktop Nav -->
-            <nav class="hidden md:flex gap-6 text-xs font-semibold text-slate-600">
-                <a href="#tentang" class="hover:text-turquoise-600 transition">Tentang Saya</a>
-                <a href="#keahlian" class="hover:text-turquoise-600 transition">Keahlian</a>
-                <a href="#projek" class="hover:text-turquoise-600 transition">Projek</a>
-                <a href="#game-edukasi" class="hover:text-turquoise-600 transition">Game Budaya</a>
-                <a href="#buku-tamu" class="hover:text-turquoise-600 transition">Buku Tamu</a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600">
+                <a href="#tentang" class="hover:text-turquoise-600 transition-colors">Tentang Saya</a>
+                <a href="#keahlian" class="hover:text-turquoise-600 transition-colors">Keahlian</a>
+                <a href="#proyek" class="hover:text-turquoise-600 transition-colors">Proyek Game</a>
+                <a href="#kontak" class="hover:text-turquoise-600 transition-colors">Buku Tamu</a>
             </nav>
 
-            <button onclick="openGameModal()" class="bg-gradient-to-r from-turquoise-500 to-sage-500 hover:from-turquoise-600 hover:to-sage-600 text-white text-xs font-bold px-4 py-2 rounded-full shadow-md transition transform hover:scale-105">
-                <i class="fa-solid fa-gamepad mr-1.5"></i> Main Game Budaya
+            <!-- PWA Install Button -->
+            <button id="pwaInstallBtn" class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-turquoise-500 to-teal-500 hover:from-turquoise-600 hover:to-teal-600 text-white text-xs font-semibold px-4 py-2.5 rounded-full shadow-md hover:shadow-lg transition-all">
+                <i class="fa-solid fa-download"></i> Install PWA
             </button>
         </div>
     </header>
 
-    <!-- HERO / PROFIL SECTION -->
-    <section id="tentang" class="py-12 sm:py-16 px-4 max-w-6xl mx-auto grid md:grid-cols-12 gap-8 items-center">
-        <!-- Foto Profil (Dipertahankan) -->
-        <div class="md:col-span-5 flex justify-center">
-            <div class="relative group">
-                <div class="absolute -inset-1 bg-gradient-to-r from-turquoise-400 to-sage-400 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000"></div>
-                <div class="relative w-56 h-56 sm:w-64 sm:h-64 rounded-full p-2 bg-white shadow-xl">
-                    <img id="profileImg" src="https://webschool.id/siswa/uploads/siswa_1788921520_bbc8dc0d.jpg" alt="Foto Profil Mei Melati" class="w-full h-full object-cover object-top rounded-full border-4 border-white">
-                </div>
-                <span class="absolute bottom-2 right-4 bg-amber-400 text-slate-900 text-xs font-bold px-3 py-1 rounded-full shadow border-2 border-white">
-                    <i class="fa-solid fa-shell-hammer"></i> RPL Student
-                </span>
-            </div>
-        </div>
-
-        <!-- Deskripsi Profil (Dipertahankan) -->
-        <div class="md:col-span-7 text-center md:text-left space-y-4">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-turquoise-100/80 border border-turquoise-200 text-turquoise-800 text-xs font-bold">
-                <i class="fa-solid fa-graduation-cap"></i> Siswi SMK Cefada • Jurusan Rekayasa Perangkat Lunak
-            </div>
-            <h1 class="text-3xl sm:text-4xl font-heading font-extrabold text-slate-800 leading-tight">
-                Halo, Saya <span class="bg-clip-text text-transparent bg-gradient-to-r from-turquoise-600 to-sage-600">Mei Melati</span> 🐚
-            </h1>
-            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-                Selamat datang di portofolio saya! Saya adalah siswi jurusan <strong>Rekayasa Perangkat Lunak (RPL)</strong> di <strong>SMK Cefada</strong>. Berpengalaman dalam membangun aplikasi berbasis web serta game interaktif edukatif yang menyenangkan.
-            </p>
-            <div class="flex flex-wrap gap-3 justify-center md:justify-start pt-2">
-                <a href="#projek" class="bg-turquoise-500 hover:bg-turquoise-600 text-white text-xs font-bold px-5 py-2.5 rounded-xl shadow-md transition">
-                    <i class="fa-solid fa-laptop-code mr-1.5"></i> Lihat Projek
-                </a>
-                <a href="https://meimelati.github.io/melati-landingpage/" target="_blank" class="bg-white hover:bg-turquoise-50 text-turquoise-800 text-xs font-bold px-5 py-2.5 rounded-xl border border-turquoise-200 shadow-sm transition">
-                    <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i> Landing Page Utama
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- KEAHLIAN / SKILL SECTION (Dipertahankan) -->
-    <section id="keahlian" class="py-10 px-4 max-w-6xl mx-auto w-full">
-        <div class="text-center space-y-2 mb-8">
-            <h2 class="text-2xl font-heading font-bold text-slate-800">Keahlian & Teknologi</h2>
-            <p class="text-xs text-slate-600">Teknologi yang saya pelajari dan gunakan dalam pembuatan aplikasi & game.</p>
-        </div>
-        <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
-            <div class="glass-card p-4 rounded-2xl text-center border-t-4 border-red-500 hover:shadow-lg transition">
-                <i class="fa-brands fa-laravel text-red-500 text-3xl mb-2"></i>
-                <h3 class="font-bold text-sm text-slate-800">Laravel</h3>
-                <span class="text-[10px] text-slate-500">Framework PHP</span>
-            </div>
-            <div class="glass-card p-4 rounded-2xl text-center border-t-4 border-indigo-500 hover:shadow-lg transition">
-                <i class="fa-brands fa-php text-indigo-500 text-3xl mb-2"></i>
-                <h3 class="font-bold text-sm text-slate-800">PHP</h3>
-                <span class="text-[10px] text-slate-500">Back-end Language</span>
-            </div>
-            <div class="glass-card p-4 rounded-2xl text-center border-t-4 border-sky-500 hover:shadow-lg transition">
-                <i class="fa-solid fa-database text-sky-500 text-3xl mb-2"></i>
-                <h3 class="font-bold text-sm text-slate-800">MySQL</h3>
-                <span class="text-[10px] text-slate-500">Database Engine</span>
-            </div>
-            <div class="glass-card p-4 rounded-2xl text-center border-t-4 border-orange-500 hover:shadow-lg transition">
-                <i class="fa-brands fa-html5 text-orange-500 text-3xl mb-2"></i>
-                <h3 class="font-bold text-sm text-slate-800">HTML5 & JS</h3>
-                <span class="text-[10px] text-slate-500">Structure & Script</span>
-            </div>
-            <div class="glass-card p-4 rounded-2xl text-center border-t-4 border-teal-500 hover:shadow-lg transition">
-                <i class="fa-brands fa-css3-alt text-teal-500 text-3xl mb-2"></i>
-                <h3 class="font-bold text-sm text-slate-800">CSS & Tailwind</h3>
-                <span class="text-[10px] text-slate-500">Styling & Layout</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- PROJEK SECTION (Dipertahankan) -->
-    <section id="projek" class="py-10 px-4 max-w-6xl mx-auto w-full">
-        <div class="text-center space-y-2 mb-8">
-            <h2 class="text-2xl font-heading font-bold text-slate-800">Projek Pilihan</h2>
-            <p class="text-xs text-slate-600">Hasil karya aplikasi dan game interaktif yang telah saya kembangkan.</p>
-        </div>
-        
-        <div class="grid md:grid-cols-2 gap-6">
-            <!-- Card Projek 1: Game Interaktif GitHub (Lama) -->
-            <div class="glass-card rounded-2xl overflow-hidden border border-turquoise-100 shadow-md flex flex-col justify-between">
-                <div class="p-6 space-y-3">
-                    <div class="flex justify-between items-center">
-                        <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-full">Interactive Web Game</span>
-                        <i class="fa-solid fa-gamepad text-turquoise-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-lg font-heading font-bold text-slate-800">Game Interaktif Landing Page</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">
-                        Projek game interaktif web yang dikembangkan menggunakan HTML, CSS, dan JavaScript modern yang di-host langsung pada GitHub Pages.
-                    </p>
-                </div>
-                <div class="p-4 bg-white/50 border-t border-turquoise-100 flex justify-between items-center">
-                    <span class="text-[11px] font-semibold text-slate-500"><i class="fa-brands fa-github mr-1"></i> meimelati.github.io</span>
-                    <a href="https://meimelati.github.io/melati-landingpage/" target="_blank" class="bg-turquoise-500 hover:bg-turquoise-600 text-white text-xs font-bold px-4 py-1.5 rounded-lg transition">
-                        Buka Game <i class="fa-solid fa-arrow-right ml-1"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Card Projek 2: Game Edukasi Nusantara (FITUR BARU YANG DITAMBAHKAN) -->
-            <div class="glass-card rounded-2xl overflow-hidden border border-turquoise-200 shadow-md flex flex-col justify-between">
-                <div class="p-6 space-y-3">
-                    <div class="flex justify-between items-center">
-                        <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-1 rounded-full">Gamifikasi Edukasi</span>
-                        <i class="fa-solid fa-compass text-turquoise-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-lg font-heading font-bold text-slate-800">Nusantara Quest: Jelajah Budaya</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">
-                        Game mini edukasi budaya khas Indonesia yang menguji pengetahuan seputar rumah adat, alat musik tradisional, dan tarian nusantara.
-                    </p>
-                </div>
-                <div class="p-4 bg-white/50 border-t border-turquoise-100 flex justify-between items-center">
-                    <span class="text-[11px] font-semibold text-slate-500"><i class="fa-solid fa-trophy text-amber-500 mr-1"></i> Interactive Quiz & Match</span>
-                    <a href="#game-edukasi" class="bg-sage-600 hover:bg-sage-700 text-white text-xs font-bold px-4 py-1.5 rounded-lg transition">
-                        Mainkan Di Bawah <i class="fa-solid fa-angles-down ml-1"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- BAGIAN GAME EDUKASI BUDAYA (SECTON DITAMBAHKAN DI SINI) -->
-    <section id="game-edukasi" class="py-10 px-4 max-w-4xl mx-auto w-full">
-        <div class="glass-card rounded-3xl p-6 sm:p-8 border border-turquoise-200 shadow-xl space-y-6">
-            <div class="text-center space-y-2">
-                <span class="bg-amber-300 text-amber-950 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Mini Game Edukasi Interaktif</span>
-                <h2 class="text-2xl font-heading font-bold text-slate-800">🎮 Nusantara Quest: Kebudayaan Indonesia</h2>
-                <p class="text-xs text-slate-600 max-w-lg mx-auto">Uji wawasan kebudayaan Anda secara langsung di bawah ini atau buka mode layar penuh!</p>
-            </div>
-
-            <!-- Dashboard Mini Game Status -->
-            <div class="flex justify-between items-center bg-turquoise-900 text-white p-3.5 rounded-2xl text-xs font-semibold shadow-inner">
-                <div class="flex gap-4">
-                    <span><i class="fa-solid fa-star text-amber-300 mr-1"></i><span id="game-xp">0 XP</span></span>
-                    <span><i class="fa-solid fa-award text-teal-300 mr-1"></i><span id="game-level">Pengelana</span></span>
-                </div>
-                <button onclick="openGameModal()" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-3 py-1 rounded-lg transition shadow">
-                    Mode Fullscreen <i class="fa-solid fa-expand ml-1"></i>
-                </button>
-            </div>
-
-            <!-- Embedded Quiz Container -->
-            <div id="embed-quiz-box" class="bg-white/90 rounded-2xl p-5 border border-turquoise-100 space-y-4 shadow-sm">
-                <div class="flex justify-between text-xs text-slate-500">
-                    <span id="embed-q-progress">Soal 1 dari 3</span>
-                    <span id="embed-q-timer" class="font-bold text-turquoise-700">15s</span>
-                </div>
-                <h3 id="embed-q-title" class="font-bold text-base text-slate-800">Memuat Soal...</h3>
-                <div id="embed-q-options" class="grid grid-cols-1 gap-2"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- BUKU TAMU / KONTAK SECTION (Dipertahankan) -->
-    <section id="buku-tamu" class="py-10 px-4 max-w-2xl mx-auto w-full">
-        <div class="glass-card rounded-3xl p-6 border border-white shadow-md space-y-4">
-            <div class="text-center space-y-1">
-                <h2 class="text-xl font-heading font-bold text-slate-800">Buku Tamu Pantai 🐚</h2>
-                <p class="text-xs text-slate-600">Tinggalkan pesan atau ucapan menyapa untuk Mei Melati!</p>
-            </div>
+    <!-- Hero Section -->
+    <section id="tentang" class="relative py-12 md:py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto z-10">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
             
-            <form id="guestForm" onsubmit="handleGuestSubmit(event)" class="space-y-3">
-                <input type="text" id="guestName" required placeholder="Nama Anda" class="w-full px-3.5 py-2.5 rounded-xl bg-white/90 border border-turquoise-200 text-xs focus:outline-none focus:ring-2 focus:ring-turquoise-400">
-                <textarea id="guestMessage" rows="2" required placeholder="Pesan singkat..." class="w-full px-3.5 py-2.5 rounded-xl bg-white/90 border border-turquoise-200 text-xs focus:outline-none focus:ring-2 focus:ring-turquoise-400"></textarea>
-                <button type="submit" class="w-full bg-turquoise-500 hover:bg-turquoise-600 text-white font-bold py-2.5 rounded-xl text-xs transition shadow-md">
-                    <i class="fa-solid fa-paper-plane mr-1"></i> Kirim Pesan
+            <!-- Profile Photo Container dengan Elemen Pantai -->
+            <div class="md:col-span-5 flex justify-center">
+                <div class="relative group">
+                    <div class="absolute -inset-5 bg-gradient-to-r from-turquoise-300 via-sand-200 to-teal-200 rounded-full blur-2xl opacity-80 group-hover:opacity-100 transition duration-1000"></div>
+                    
+                    <div class="absolute -top-3 -right-3 w-11 h-11 bg-white shadow-md rounded-full flex items-center justify-center text-turquoise-600 z-20 floating-slow">
+                        <i class="fa-solid fa-tree-palm text-xl"></i>
+                    </div>
+
+                    <div class="absolute -bottom-2 -left-3 w-11 h-11 bg-white shadow-md rounded-full flex items-center justify-center text-amber-500 z-20 floating-fast">
+                        <i class="fa-solid fa-starfish text-xl"></i>
+                    </div>
+
+                    <div class="absolute bottom-4 right-0 bg-pearl-100 text-turquoise-800 text-xs px-3 py-1 rounded-full pearl-glow font-bold border border-white z-20 flex items-center gap-1">
+                        <i class="fa-solid fa-gem text-teal-400"></i> Pearl RPL
+                    </div>
+
+                    <div class="relative w-64 h-64 sm:w-72 sm:h-72 rounded-full overflow-hidden border-4 border-white shadow-2xl bg-white">
+                        <img id="profileImg" 
+                             src="https://webschool.id/siswa/uploads/siswa_1788921520_bbc8dc0d.jpg" 
+                             alt="Mei Melati - SMK Cefada RPL" 
+                             class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Details Text -->
+            <div class="md:col-span-7 text-center md:text-left space-y-5">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-turquoise-100 text-turquoise-800 text-xs font-semibold border border-turquoise-200/60 shadow-sm">
+                    <i class="fa-solid fa-water text-turquoise-500"></i> Siswi SMK Cefada • Rekayasa Perangkat Lunak
+                </div>
+
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-slate-800 leading-tight">
+                    Halo, Saya <span class="bg-gradient-to-r from-turquoise-600 to-teal-500 bg-clip-text text-transparent">Mei Melati</span> 🐚
+                </h1>
+
+                <p class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl">
+                    Saya adalah siswi jurusan <strong>Rekayasa Perangkat Lunak (RPL)</strong> di <strong>SMK Cefada</strong>. Tertarik pada pembuatan aplikasi web modern yang interaktif, pemrograman back-end, dan pengembangan game berbasis web.
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="pt-2 flex flex-wrap gap-4 justify-center md:justify-start">
+                    <a href="#proyek" class="inline-flex items-center gap-2 bg-gradient-to-r from-turquoise-500 to-teal-500 hover:from-turquoise-600 hover:to-teal-600 text-white font-semibold px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all">
+                        <i class="fa-solid fa-gamepad"></i> Lihat Proyek Game
+                    </a>
+                    <a href="#kontak" class="inline-flex items-center gap-2 bg-white hover:bg-turquoise-50 text-turquoise-800 font-semibold px-6 py-3 rounded-full shadow-sm hover:shadow border border-turquoise-200 transition-all">
+                        <i class="fa-solid fa-envelope text-xs"></i> Kirim Pesan
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Keahlian / Tech Stack Section -->
+    <section id="keahlian" class="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full z-10">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+            <div class="inline-block p-3 rounded-full bg-turquoise-100 text-turquoise-600 mb-2">
+                <i class="fa-solid fa-code text-xl"></i>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-heading font-bold text-slate-800">Keahlian & Teknologi</h2>
+            <p class="text-slate-500 text-sm mt-1">Bahasa pemrograman dan tools web development yang saya pelajari.</p>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div class="glass-card p-5 rounded-2xl text-center hover:-translate-y-1.5 transition-all shadow-sm hover:shadow-md border-t-2 border-red-400">
+                <div class="w-12 h-12 bg-red-50 text-red-500 rounded-xl flex items-center justify-center mx-auto mb-3 text-2xl">
+                    <i class="fa-brands fa-laravel"></i>
+                </div>
+                <h3 class="font-bold text-slate-800">Laravel</h3>
+                <span class="text-xs text-slate-500">PHP Framework</span>
+            </div>
+
+            <div class="glass-card p-5 rounded-2xl text-center hover:-translate-y-1.5 transition-all shadow-sm hover:shadow-md border-t-2 border-indigo-400">
+                <div class="w-12 h-12 bg-indigo-50 text-indigo-500 rounded-xl flex items-center justify-center mx-auto mb-3 text-2xl">
+                    <i class="fa-brands fa-php"></i>
+                </div>
+                <h3 class="font-bold text-slate-800">PHP</h3>
+                <span class="text-xs text-slate-500">Programming</span>
+            </div>
+
+            <div class="glass-card p-5 rounded-2xl text-center hover:-translate-y-1.5 transition-all shadow-sm hover:shadow-md border-t-2 border-sky-400">
+                <div class="w-12 h-12 bg-sky-50 text-sky-600 rounded-xl flex items-center justify-center mx-auto mb-3 text-2xl">
+                    <i class="fa-solid fa-database"></i>
+                </div>
+                <h3 class="font-bold text-slate-800">MySQL</h3>
+                <span class="text-xs text-slate-500">Database</span>
+            </div>
+
+            <div class="glass-card p-5 rounded-2xl text-center hover:-translate-y-1.5 transition-all shadow-sm hover:shadow-md border-t-2 border-orange-400">
+                <div class="w-12 h-12 bg-orange-50 text-orange-500 rounded-xl flex items-center justify-center mx-auto mb-3 text-2xl">
+                    <i class="fa-brands fa-html5"></i>
+                </div>
+                <h3 class="font-bold text-slate-800">HTML5</h3>
+                <span class="text-xs text-slate-500">Structure</span>
+            </div>
+
+            <div class="glass-card p-5 rounded-2xl text-center hover:-translate-y-1.5 transition-all shadow-sm hover:shadow-md border-t-2 border-turquoise-400">
+                <div class="w-12 h-12 bg-turquoise-50 text-turquoise-600 rounded-xl flex items-center justify-center mx-auto mb-3 text-2xl">
+                    <i class="fa-brands fa-css3-alt"></i>
+                </div>
+                <h3 class="font-bold text-slate-800">CSS3</h3>
+                <span class="text-xs text-slate-500">Styling</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proyek Highlight Section (Menampilkan 2 Game Interaktif) -->
+    <section id="proyek" class="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full z-10">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+            <div class="inline-block p-3 rounded-full bg-sand-200 text-amber-700 mb-2">
+                <i class="fa-solid fa-gamepad text-xl"></i>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-heading font-bold text-slate-800">Proyek Game Interaktif</h2>
+            <p class="text-slate-500 text-sm mt-1">Karya interaktif yang telah saya kembangkan dan publish di GitHub Pages.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            
+            <!-- Proyek Game 1 -->
+            <div class="glass-card rounded-3xl p-6 border border-white shadow-lg flex flex-col justify-between hover:shadow-xl transition-all relative overflow-hidden group">
+                <div class="absolute -right-8 -bottom-8 text-turquoise-100/70 text-8xl pointer-events-none group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-water"></i>
+                </div>
+
+                <div>
+                    <div class="bg-gradient-to-r from-turquoise-500 to-teal-500 rounded-2xl p-5 text-white mb-5 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center text-2xl">
+                            <i class="fa-solid fa-ghost"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold bg-amber-300 text-amber-950 px-2.5 py-0.5 rounded-full uppercase">Game #1</span>
+                            <h4 class="font-heading font-bold text-lg mt-0.5">Game Interaktif 1</h4>
+                        </div>
+                    </div>
+
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Proyek game interaktif pertama berbasis HTML, CSS, dan JavaScript dengan tema santai dan gameplay menarik.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="text-xs bg-turquoise-100 text-turquoise-800 px-2.5 py-1 rounded-md font-medium">JavaScript</span>
+                        <span class="text-xs bg-turquoise-100 text-turquoise-800 px-2.5 py-1 rounded-md font-medium">HTML5 / CSS3</span>
+                        <span class="text-xs bg-sand-200 text-amber-900 px-2.5 py-1 rounded-md font-medium">GitHub Pages</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 pt-2 border-t border-slate-100 relative z-10">
+                    <a href="https://meimelati.github.io/melati-landingpage/" target="_blank" class="flex-1 text-center bg-gradient-to-r from-turquoise-500 to-teal-500 hover:from-turquoise-600 hover:to-teal-600 text-white font-semibold text-xs py-2.5 rounded-xl shadow transition-all">
+                        <i class="fa-solid fa-play mr-1"></i> Buka Game 1
+                    </a>
+                    <button onclick="openPreviewModal('https://meimelati.github.io/melati-landingpage/')" class="bg-sand-200 hover:bg-sand-300 text-amber-900 font-semibold text-xs px-4 py-2.5 rounded-xl transition-all">
+                        <i class="fa-solid fa-eye mr-1"></i> Preview
+                    </button>
+                </div>
+            </div>
+
+            <!-- Proyek Game 2 (Terbaru) -->
+            <div class="glass-card rounded-3xl p-6 border border-white shadow-lg flex flex-col justify-between hover:shadow-xl transition-all relative overflow-hidden group">
+                <div class="absolute -right-8 -bottom-8 text-turquoise-100/70 text-8xl pointer-events-none group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-gamepad"></i>
+                </div>
+
+                <div>
+                    <div class="bg-gradient-to-r from-teal-500 to-emerald-500 rounded-2xl p-5 text-white mb-5 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center text-2xl">
+                            <i class="fa-solid fa-dice text-amber-200"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold bg-amber-300 text-amber-950 px-2.5 py-0.5 rounded-full uppercase">Game #2 (Terbaru)</span>
+                            <h4 class="font-heading font-bold text-lg mt-0.5">Game Mei Landing Page</h4>
+                        </div>
+                    </div>
+
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Proyek game interaktif terbaru ciptaan Mei Melati yang dipublikasikan di GitHub dengan pengalaman interaksi yang seru.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="text-xs bg-turquoise-100 text-turquoise-800 px-2.5 py-1 rounded-md font-medium">JavaScript</span>
+                        <span class="text-xs bg-turquoise-100 text-turquoise-800 px-2.5 py-1 rounded-md font-medium">HTML5 / CSS3</span>
+                        <span class="text-xs bg-sand-200 text-amber-900 px-2.5 py-1 rounded-md font-medium">GitHub Pages</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 pt-2 border-t border-slate-100 relative z-10">
+                    <a href="https://meimelati.github.io/gamemei-landingpage/" target="_blank" class="flex-1 text-center bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white font-semibold text-xs py-2.5 rounded-xl shadow transition-all">
+                        <i class="fa-solid fa-play mr-1"></i> Buka Game 2
+                    </a>
+                    <button onclick="openPreviewModal('https://meimelati.github.io/gamemei-landingpage/')" class="bg-sand-200 hover:bg-sand-300 text-amber-900 font-semibold text-xs px-4 py-2.5 rounded-xl transition-all">
+                        <i class="fa-solid fa-eye mr-1"></i> Preview
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Interactive Guestbook Section -->
+    <section id="kontak" class="py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full z-10">
+        <div class="glass-card rounded-3xl p-6 sm:p-8 border border-white shadow-lg">
+            <div class="text-center mb-8">
+                <div class="w-12 h-12 bg-turquoise-100 text-turquoise-700 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
+                    <i class="fa-solid fa-comments font-normal"></i>
+                </div>
+                <h2 class="text-2xl font-heading font-bold text-slate-800">Buku Tamu Pantai 🐚</h2>
+                <p class="text-slate-500 text-sm mt-1">Tinggalkan pesan hangat untuk Mei Melati.</p>
+            </div>
+
+            <form id="guestForm" onsubmit="handleGuestSubmit(event)" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Nama Anda</label>
+                        <input type="text" id="guestName" required placeholder="Nama lengkap / panggilan" class="w-full px-4 py-3 rounded-xl bg-white border border-turquoise-200 focus:outline-none focus:ring-2 focus:ring-turquoise-400 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Email / Kontak</label>
+                        <input type="text" id="guestContact" required placeholder="Email atau Instagram" class="w-full px-4 py-3 rounded-xl bg-white border border-turquoise-200 focus:outline-none focus:ring-2 focus:ring-turquoise-400 text-sm">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Pesan</label>
+                    <textarea id="guestMessage" rows="3" required placeholder="Tuliskan masukan atau salam hangat..." class="w-full px-4 py-3 rounded-xl bg-white border border-turquoise-200 focus:outline-none focus:ring-2 focus:ring-turquoise-400 text-sm"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-turquoise-500 to-teal-500 hover:from-turquoise-600 hover:to-teal-600 text-white font-semibold py-3 rounded-xl shadow transition-all text-sm">
+                    <i class="fa-solid fa-paper-plane mr-2"></i> Kirim Pesan
                 </button>
             </form>
 
-            <div id="messagesList" class="space-y-2 pt-2 border-t border-turquoise-100 text-xs text-slate-600 max-h-48 overflow-y-auto">
-                <div class="bg-white/80 p-3 rounded-xl border border-turquoise-100">
-                    <span class="font-bold text-turquoise-900">Teman SMK Cefada 🌴</span>: Sukses terus untuk portofolio & game edukasinya Mei! ✨
+            <div class="mt-8 pt-6 border-t border-slate-200/60">
+                <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Pesan Terbaru</h4>
+                <div id="messagesList" class="space-y-3">
+                    <div class="bg-white/80 p-4 rounded-xl border border-turquoise-100 text-xs text-slate-600">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-bold text-turquoise-900">Teman SMK Cefada 🌴</span>
+                            <span class="text-slate-400">Baru saja</span>
+                        </div>
+                        <p>Keren banget Mei! Game keduanya makin seru dan portofolionya makin lengkap! 🌊✨</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FULLSCREEN GAME MODAL (DITAMBAHKAN UNTUK GAME MATCHING) -->
-    <div id="gameModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 hidden flex-col justify-center p-4">
-        <div class="bg-slate-900 text-white w-full max-w-3xl mx-auto rounded-3xl p-6 border border-turquoise-500/30 relative max-h-[90vh] overflow-y-auto">
-            <button onclick="closeGameModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl p-2"><i class="fa-solid fa-xmark"></i></button>
-            <h2 class="font-heading font-bold text-xl text-amber-300 mb-2"><i class="fa-solid fa-compass mr-2"></i>Jelajah Budaya Fullscreen</h2>
-            <p class="text-slate-300 text-xs mb-4">Cocokkan Alat Musik Tradisional dengan Asal Daerahnya:</p>
-            
-            <div class="space-y-4 text-sm">
-                <div class="grid grid-cols-2 gap-4">
-                    <div id="match-left" class="space-y-2"></div>
-                    <div id="match-right" class="space-y-2"></div>
+    <!-- Live Preview Modal Universal -->
+    <div id="previewModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-3xl h-[80vh] rounded-3xl overflow-hidden shadow-2xl flex flex-col">
+            <div class="p-4 bg-turquoise-50 border-b border-turquoise-200 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-red-400"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                    <span id="modalUrlTitle" class="text-xs font-medium text-turquoise-800 ml-2">Preview Game</span>
                 </div>
+                <button onclick="closePreviewModal()" class="text-slate-400 hover:text-slate-700 text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
+            <iframe id="modalIframe" src="" class="w-full flex-grow border-0"></iframe>
         </div>
     </div>
 
-    <!-- FOOTER HAK CIPTA (Dipertahankan Lengkap) -->
-    <footer class="bg-turquoise-900 text-turquoise-100 py-6 px-4 border-t border-turquoise-800 text-center text-xs mt-12">
-        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
-            <div class="text-center sm:text-left">
-                <p class="font-bold text-white text-sm">Mei Melati</p>
-                <p class="text-[11px] text-turquoise-300">SMK Cefada Jurusan Rekayasa Perangkat Lunak</p>
+    <!-- Footer & Hak Cipta (Paling Bawah) -->
+    <footer class="bg-gradient-to-b from-turquoise-900 to-teal-950 text-turquoise-100 py-10 px-4 sm:px-6 lg:px-8 mt-12 border-t border-turquoise-800 relative z-10">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+            <div>
+                <div class="flex items-center justify-center sm:justify-start gap-2 mb-1">
+                    <i class="fa-solid fa-umbrella-beach text-turquoise-400 text-lg"></i>
+                    <p class="font-heading font-bold text-lg text-white">Mei Melati</p>
+                </div>
+                <p class="text-xs text-turquoise-300">Siswi SMK Cefada • Rekayasa Perangkat Lunak (RPL)</p>
             </div>
-            <p class="text-turquoise-300">© <span id="year"></span> Mei Melati, SMK Cefada Jurusan Rekayasa Perangkat Lunak. Hak Cipta Dilindungi.</p>
+
+            <div class="flex items-center gap-5 text-lg">
+                <a href="https://meimelati.github.io/gamemei-landingpage/" target="_blank" class="hover:text-amber-300 transition-colors" title="GitHub Project 2">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+                <a href="#kontak" class="hover:text-amber-300 transition-colors" title="Buku Tamu">
+                    <i class="fa-solid fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto mt-8 pt-6 border-t border-turquoise-800/80 text-center text-xs text-turquoise-400">
+            <p>© <span id="year"></span> Mei Melati. Hak Cipta Dilindungi Undang-Undang.</p>
         </div>
     </footer>
 
-    <!-- SCRIPT UTAMA & GAME LOGIC -->
+    <!-- JavaScript Handlers -->
     <script>
-        // Set Tahun Hak Cipta Otomatis
+        // Set dynamic year
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Data Kuis Budaya
-        const embedQuestions = [
-            { q: "Alat musik 'Sasando' berasal dari provinsi...", opt: ["Nusa Tenggara Timur", "Maluku", "Aceh"], ans: 0 },
-            { q: "Rumah adat 'Tongkonan' merupakan ciri khas dari suku...", opt: ["Batak", "Toraja", "Minangkabau"], ans: 1 },
-            { q: "Tari Saman yang terkenal berasal dari daerah...", opt: ["Bali", "Jawa Barat", "Aceh"], ans: 2 }
-        ];
-
-        // Data Matching Game
-        const matchItems = [
-            { id: 1, left: "Angklung", right: "Jawa Barat" },
-            { id: 2, left: "Kolintang", right: "Sulawesi Utara" },
-            { id: 3, left: "Tifa", right: "Papua" }
-        ];
-
-        let gameXP = 0;
-        let currentQ = 0;
-        let selectedLeft = null;
-
-        // Render Kuis Edukasi Mini
-        function loadEmbedQuestion() {
-            if (currentQ >= embedQuestions.length) {
-                document.getElementById('embed-quiz-box').innerHTML = `
-                    <div class="text-center py-6 space-y-2">
-                        <i class="fa-solid fa-circle-check text-emerald-500 text-4xl"></i>
-                        <h4 class="font-bold text-emerald-700 text-lg">Kuis Selesai! 🎉</h4>
-                        <p class="text-xs text-slate-600">Selamat, Anda berhasil menyelesaikan kuis penjelajah budaya!</p>
-                    </div>`;
-                return;
-            }
-
-            const q = embedQuestions[currentQ];
-            document.getElementById('embed-q-progress').innerText = `Soal ${currentQ + 1} dari ${embedQuestions.length}`;
-            document.getElementById('embed-q-title').innerText = q.q;
-            
-            const optBox = document.getElementById('embed-q-options');
-            optBox.innerHTML = '';
-            q.opt.forEach((o, idx) => {
-                const btn = document.createElement('button');
-                btn.className = "w-full text-left p-3 rounded-xl bg-turquoise-50 hover:bg-turquoise-100 border border-turquoise-100 text-xs font-semibold text-slate-700 transition flex justify-between items-center";
-                btn.innerHTML = `<span>${o}</span> <i class="fa-solid fa-chevron-right text-[10px] text-turquoise-500"></i>`;
-                btn.onclick = () => {
-                    if (idx === q.ans) {
-                        gameXP += 20;
-                        document.getElementById('game-xp').innerText = `${gameXP} XP`;
-                        alert("Benar sekali! +20 XP");
-                    } else {
-                        alert("Jawaban kurang tepat!");
-                    }
-                    currentQ++;
-                    loadEmbedQuestion();
-                };
-                optBox.appendChild(btn);
-            });
+        // Modal Handlers dengan Parameter Dynamic URL
+        function openPreviewModal(url) {
+            document.getElementById('modalIframe').src = url;
+            document.getElementById('modalUrlTitle').textContent = 'Preview: ' + url.replace('https://', '');
+            document.getElementById('previewModal').classList.remove('hidden');
+            document.getElementById('previewModal').classList.add('flex');
         }
 
-        // Modal Screen Controls
-        function openGameModal() {
-            document.getElementById('gameModal').classList.remove('hidden');
-            document.getElementById('gameModal').classList.add('flex');
-            renderMatchGame();
+        function closePreviewModal() {
+            document.getElementById('modalIframe').src = '';
+            document.getElementById('previewModal').classList.add('hidden');
+            document.getElementById('previewModal').classList.remove('flex');
         }
 
-        function closeGameModal() {
-            document.getElementById('gameModal').classList.add('hidden');
-            document.getElementById('gameModal').classList.remove('flex');
-        }
-
-        // Render Game Pencocokan
-        function renderMatchGame() {
-            const leftBox = document.getElementById('match-left');
-            const rightBox = document.getElementById('match-right');
-            leftBox.innerHTML = ''; rightBox.innerHTML = '';
-
-            matchItems.forEach(item => {
-                const lCard = document.createElement('div');
-                lCard.className = "match-card p-3 rounded-xl bg-slate-800 border border-slate-700 text-xs cursor-pointer hover:border-turquoise-400 transition";
-                lCard.innerText = item.left;
-                lCard.onclick = () => {
-                    document.querySelectorAll('#match-left div').forEach(c => c.classList.remove('selected'));
-                    lCard.classList.add('selected');
-                    selectedLeft = item.id;
-                };
-                leftBox.appendChild(lCard);
-
-                const rCard = document.createElement('div');
-                rCard.className = "match-card p-3 rounded-xl bg-slate-800 border border-slate-700 text-xs cursor-pointer hover:border-turquoise-400 transition";
-                rCard.innerText = item.right;
-                rCard.onclick = () => {
-                    if (selectedLeft === item.id) {
-                        rCard.classList.add('matched');
-                        gameXP += 30;
-                        document.getElementById('game-xp').innerText = `${gameXP} XP`;
-                        alert("Cocok! +30 XP");
-                    }
-                };
-                rightBox.appendChild(rCard);
-            });
-        }
-
-        // Form Buku Tamu
+        // Guestbook Form Handler
         function handleGuestSubmit(e) {
             e.preventDefault();
             const name = document.getElementById('guestName').value;
             const msg = document.getElementById('guestMessage').value;
-            const list = document.getElementById('messagesList');
 
-            const item = document.createElement('div');
-            item.className = "bg-white/80 p-3 rounded-xl border border-turquoise-100";
-            item.innerHTML = `<span class="font-bold text-turquoise-900">${name} 🐚</span>: ${msg}`;
-            list.prepend(item);
+            const list = document.getElementById('messagesList');
+            const newMsg = document.createElement('div');
+            newMsg.className = "bg-white/80 p-4 rounded-xl border border-turquoise-100 text-xs text-slate-600 animate-fade-in";
+            newMsg.innerHTML = `
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-bold text-turquoise-900">${escapeHtml(name)} 🐚</span>
+                    <span class="text-slate-400">Baru saja</span>
+                </div>
+                <p>${escapeHtml(msg)}</p>
+            `;
+            list.prepend(newMsg);
 
             document.getElementById('guestForm').reset();
-            alert('Terima kasih, pesan Anda telah tersimpan di Buku Tamu!');
+            alert('Terima kasih! Pesan Anda telah dikirim.');
         }
 
-        // Inisialisasi Kuis saat Halaman Dimuat
-        loadEmbedQuestion();
+        function escapeHtml(text) {
+            return text.replace(/[&<>"']/g, function(m) { return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'})[m]; });
+        }
+
+        // PWA Installation Prompt Handler
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const pwaBtn = document.getElementById('pwaInstallBtn');
+            if (pwaBtn) pwaBtn.classList.remove('hidden');
+        });
+
+        document.getElementById('pwaInstallBtn')?.addEventListener('click', () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('PWA dipasang');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        });
     </script>
 </body>
-</html>                                      
+</html>
